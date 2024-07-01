@@ -5,6 +5,8 @@ import com.isaquesantos7.modelagem_conceitual.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
@@ -14,5 +16,10 @@ public class CategoryService {
     public Category find(Integer id) {
 
         return this.categoryRepository.findById(id).orElse(null);
+    }
+
+    public List<Category> findAll() {
+
+        return this.categoryRepository.findAll();
     }
 }

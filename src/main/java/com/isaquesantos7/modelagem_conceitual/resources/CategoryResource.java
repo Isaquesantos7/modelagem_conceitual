@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,6 +16,14 @@ public class CategoryResource {
 
     @Autowired
     private CategoryService categoryService;
+
+    @GetMapping("/api/categorias")
+    public ResponseEntity<List<Category>> findAll() {
+        List<Category> list = this.categoryService.findAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
 
     @GetMapping("/api/categorias/{id}")
     public ResponseEntity<Category> findById(@PathVariable(value = "id") Integer id) {
