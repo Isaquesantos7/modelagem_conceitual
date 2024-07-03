@@ -1,8 +1,9 @@
 package com.isaquesantos7.modelagem_conceitual.config;
 
 import com.isaquesantos7.modelagem_conceitual.model.Category;
+import com.isaquesantos7.modelagem_conceitual.model.Product;
 import com.isaquesantos7.modelagem_conceitual.repositories.CategoryRepository;
-import com.isaquesantos7.modelagem_conceitual.resources.CategoryResource;
+import com.isaquesantos7.modelagem_conceitual.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +18,28 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
-        Category cat0 = new Category(null, "Informática");
-        Category cat1 = new Category(null, "Escritório");
+        Category cat1 = new Category(null, "Informática");
+        Category cat2 = new Category(null, "Escritório");
 
-        this.categoryRepository.saveAll(Arrays.asList(cat0, cat1));
+        Product p1 = new Product(null, "Manga", 6.77);
+        Product p2 = new Product(null, "Manteiga", 8.99);
+        Product p3 = new Product(null, "Computador", 2000.00);
+
+        cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
+        cat2.getProducts().add(p2);
+
+        p1.getCategories().add(cat2);
+        p2.getCategories().addAll(Arrays.asList(cat1, cat2));
+        p3.getCategories().add(cat2);
+
+        this.categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+        this.productRepository.saveAll(Arrays.asList(p1, p2, p3));
+
     }
 
 }
