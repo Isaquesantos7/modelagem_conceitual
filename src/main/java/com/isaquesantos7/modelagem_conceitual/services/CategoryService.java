@@ -2,6 +2,7 @@ package com.isaquesantos7.modelagem_conceitual.services;
 
 import com.isaquesantos7.modelagem_conceitual.model.Category;
 import com.isaquesantos7.modelagem_conceitual.repositories.CategoryRepository;
+import com.isaquesantos7.modelagem_conceitual.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class CategoryService {
 
     public Category find(Integer id) {
 
-        return this.categoryRepository.findById(id).orElse(null);
+        return this.categoryRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("There is no object with the given id!"));
     }
 
     public List<Category> findAll() {
