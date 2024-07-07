@@ -1,13 +1,8 @@
 package com.isaquesantos7.modelagem_conceitual.config;
 
-import com.isaquesantos7.modelagem_conceitual.model.Category;
-import com.isaquesantos7.modelagem_conceitual.model.City;
-import com.isaquesantos7.modelagem_conceitual.model.Product;
-import com.isaquesantos7.modelagem_conceitual.model.State;
-import com.isaquesantos7.modelagem_conceitual.repositories.CategoryRepository;
-import com.isaquesantos7.modelagem_conceitual.repositories.CityRepository;
-import com.isaquesantos7.modelagem_conceitual.repositories.ProductRepository;
-import com.isaquesantos7.modelagem_conceitual.repositories.StateRepository;
+import com.isaquesantos7.modelagem_conceitual.model.*;
+import com.isaquesantos7.modelagem_conceitual.model.enums.TypeClient;
+import com.isaquesantos7.modelagem_conceitual.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +26,12 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CityRepository cityRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Category cat1 = new Category(null, "Informática");
@@ -47,6 +48,14 @@ public class TestConfig implements CommandLineRunner {
         City c2 = new City(null, "São Paulo", st2);
         City c3 = new City(null, "Campinas", st2);
 
+        Client client1 = new Client(null, "Maria Silva", "maria@gmail.com", "2600000000", TypeClient.PESSOA_FISICA);
+        client1.getPhones().addAll(Arrays.asList("+5571987308769", "+5571986992134"));
+
+        Address e1 = new Address(null, "Rua flores", "300", "Terreo", "Jardim", "42850000", client1, c1);
+        Address e2 = new Address(null, "Rua Panda", "500", "Em Construção", "Jardim Boa Esperança", "42850111", client1, c2);
+
+        client1.getAddresses().addAll(Arrays.asList(e1, e2));
+
         st1.getCities().add(c1);
         st2.getCities().addAll(Arrays.asList(c2, c3));
 
@@ -58,9 +67,16 @@ public class TestConfig implements CommandLineRunner {
         p3.getCategories().add(cat2);
 
         this.categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+
         this.productRepository.saveAll(Arrays.asList(p1, p2, p3));
+
         this.stateRepository.saveAll(Arrays.asList(st1, st2));
+
         this.cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+        this.clientRepository.save(client1);
+
+        this.addressRepository.saveAll(Arrays.asList(e1, e2));
 
     }
 
