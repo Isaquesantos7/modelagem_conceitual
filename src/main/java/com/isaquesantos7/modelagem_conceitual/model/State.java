@@ -1,5 +1,6 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -19,6 +20,7 @@ public class State implements Serializable {
     private Integer id;
     private String name;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "state")
     private List<City> cities = new ArrayList<>();
 

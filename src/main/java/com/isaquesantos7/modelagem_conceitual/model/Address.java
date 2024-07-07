@@ -1,5 +1,7 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -21,6 +23,7 @@ public class Address implements Serializable {
     private String neighborhood;
     private String cep;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Client client;
