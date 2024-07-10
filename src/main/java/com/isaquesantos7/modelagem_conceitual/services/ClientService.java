@@ -6,6 +6,8 @@ import com.isaquesantos7.modelagem_conceitual.services.exceptions.ObjectNotFound
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClientService {
 
@@ -17,6 +19,11 @@ public class ClientService {
         return this.clientRepository.findById(id).orElseThrow(
                 () -> new ObjectNotFoundException("Object not found!")
         );
+    }
+
+    public List<Client> listAll() {
+
+        return this.clientRepository.findAll();
     }
 
 }
