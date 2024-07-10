@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_produtos")
@@ -30,12 +28,24 @@ public class Product implements Serializable {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> itens = new HashSet<>();
+
     public Product() {}
 
     public Product(Integer id, String name, Double price) {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public List<Order> getOrders() {
+        List<Order> list = new ArrayList<>();
+        for (OrderItem x : itens) {
+            list.add(x.getOrder());
+        }
+
+        return list;
     }
 
     public Integer getId() {
@@ -64,6 +74,10 @@ public class Product implements Serializable {
 
     public List<Category> getCategories() {
         return categories;
+    }
+
+    public Set<OrderItem> getItens() {
+        return itens;
     }
 
     @Override

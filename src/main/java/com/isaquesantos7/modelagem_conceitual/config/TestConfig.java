@@ -40,8 +40,13 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @Override
     public void run(String... args) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
         Category cat1 = new Category(null, "Informática");
         Category cat2 = new Category(null, "Escritório");
 
@@ -61,8 +66,6 @@ public class TestConfig implements CommandLineRunner {
 
         Address e1 = new Address(null, "Rua flores", "300", "Terreo", "Jardim", "42850000", client1, c1);
         Address e2 = new Address(null, "Rua Panda", "500", "Em Construção", "Jardim Boa Esperança", "42850111", client1, c2);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
         Order order1 = new Order(null, sdf.parse("30/09/2017 10:32"), client1, e1);
         Order order2 = new Order(null, sdf.parse("18/05/2024 15:00"), client1, e2);
@@ -103,6 +106,18 @@ public class TestConfig implements CommandLineRunner {
 
         this.paymentRepository.saveAll(Arrays.asList(payment1, payment2));
 
+        OrderItem ip1 = new OrderItem(order1, p1, 0.0, 1, 2000.00);
+        OrderItem ip2 = new OrderItem(order1, p3, 0.0, 2, 80.00);
+        OrderItem ip3 = new OrderItem(order2, p2, 100.0, 1, 800.00);
+
+        order1.getItens().addAll(Arrays.asList(ip1, ip2));
+        order2.getItens().add(ip3);
+
+        p1.getItens().add(ip1);
+        p2.getItens().add(ip3);
+        p3.getItens().add(ip2);
+
+        this.orderItemRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
     }
 
 }
