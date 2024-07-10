@@ -1,5 +1,8 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.engine.internal.Cascade;
 
@@ -19,11 +22,15 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     private Date instant;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Payment payment;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

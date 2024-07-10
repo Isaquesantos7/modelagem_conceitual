@@ -1,5 +1,6 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.isaquesantos7.modelagem_conceitual.model.enums.TypeClient;
@@ -32,6 +33,7 @@ public class Client implements Serializable {
     @CollectionTable(name = "tb_telefone")
     private Set<String> phones = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.isaquesantos7.modelagem_conceitual.model.enums.PaymentState;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,7 +16,10 @@ public class PaymentWithTicket extends Payment implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dueDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date paymentDate;
 
     public PaymentWithTicket() {}
