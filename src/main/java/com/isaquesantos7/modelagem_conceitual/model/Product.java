@@ -1,6 +1,5 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -20,7 +19,7 @@ public class Product implements Serializable {
     private String name;
     private Double price;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "rl_produto_categoria",

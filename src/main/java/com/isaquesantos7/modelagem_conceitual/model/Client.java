@@ -1,15 +1,12 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.isaquesantos7.modelagem_conceitual.model.enums.TypeClient;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
-
 
 @Entity
 @Table(name = "tb_cliente")
@@ -25,7 +22,6 @@ public class Client implements Serializable {
     private String cpfOrCnpj;
     private Integer typeClient;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
@@ -33,7 +29,7 @@ public class Client implements Serializable {
     @CollectionTable(name = "tb_telefone")
     private Set<String> phones = new HashSet<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

@@ -1,6 +1,6 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isaquesantos7.modelagem_conceitual.model.enums.PaymentState;
 import jakarta.persistence.*;
 
@@ -18,7 +18,7 @@ public abstract class Payment implements Serializable {
     @Id
     private Integer id;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

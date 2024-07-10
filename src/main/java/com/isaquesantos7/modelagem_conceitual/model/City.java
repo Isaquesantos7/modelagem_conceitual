@@ -1,6 +1,5 @@
 package com.isaquesantos7.modelagem_conceitual.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -18,7 +17,6 @@ public class City implements Serializable {
     private Integer id;
     private String name;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private State state;
